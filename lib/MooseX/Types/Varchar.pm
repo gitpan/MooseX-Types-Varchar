@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use 5.008;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use MooseX::Types::Parameterizable qw(Parameterizable);
 use MooseX::Types -declare => [qw( Varchar TrimmableVarchar )];
@@ -18,6 +18,11 @@ subtype Varchar,
       },
       message {
         my ($val, $constraining) = @_;
+
+        # for 5.8, probably switch to  $foo //= ''; if 5.10 is an option
+        $val          ||= defined $val          ? $val          : '';
+        $constraining ||= defined $constraining ? $constraining : '';
+
         qq{Validation failed for 'MooseX::Types::Varchar[$constraining]' with value "$val"};
       };
 

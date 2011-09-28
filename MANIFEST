@@ -19,3 +19,4 @@ t/author/notabs.t
 t/bad_param.t
 t/basic.t
 t/subtype.t
+t/undef.t
